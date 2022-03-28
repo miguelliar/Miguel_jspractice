@@ -157,12 +157,19 @@ console.log(pets.reduce(((nameOfPets, pet) => [...nameOfPets,pet.name]), []))
 console.log(persons.reduce(((arrayOfInfected, person) => person.infected ? [...arrayOfInfected, person] : arrayOfInfected), []))
 
 // 8. Array de españoles con perro
-persons.filter(person => person.country === "ES").map((person) => {
+// Primera manera que se me ocurrió
+console.log(persons.filter(person => person.country === "ES").map((person) => {
   person["petSpecie"] = pets.filter(pet => person.pet === pet.name)[0].animal
   return person
-}).filter(person => person["petSpecie"] === "perro")
+}).filter(person => person["petSpecie"] === "perro"))
+// Segunda manera
+let españoles = persons.filter(person => person.country ==="ES")
+let perrosNombre = pets.filter(pet => pet.animal ==="perro").map(perro => perro.name)
+let personasConPerro = persons.filter(person => perrosNombre.indexOf(person.pet) != -1)
+let españolesConPerro = españoles.filter(español => personasConPerro.indexOf(español) != -1)
+console.log(españolesConPerro)
 
-// Número de personas infectadas del array de personas
+// 9. Número de personas infectadas del array de personas
 
 // Array con las personas y el objeto de la persona tiene a mayores todos los datos de su mascota
 
