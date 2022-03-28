@@ -133,21 +133,33 @@ const countries = [
  * EJERCICIOS
  */
 
-// Número total de infectados
+// 1. Número total de infectados
+console.log(persons.filter((person )=> person.infected).length);
+console.log(persons.reduce(((currentlyInfected, person)=> person.infected ? ++currentlyInfected : currentlyInfected), 0));
 
-// Número total de sanos
+// 2. Número total de sanos
+console.log(persons.filter((person) => !person.infected).length);
+console.log(persons.reduce(((currentlyHealthy, person)=> person.infected ? currentlyHealthy : ++currentlyHealthy),0))
 
-// Numero total de infectados en los países (del array de países)
+// 3. Numero total de infectados en los países (del array de países)
+console.log(countries.reduce(((currentlyInfected, country)=> country.infected + currentlyInfected),0))
 
-// País con más infectados (del array de países)
+// 4. País con más infectados (del array de países)
+console.log(countries.reduce(((highestInfectedCountry, country) => highestInfectedCountry.infected > country.infected ? highestInfectedCountry : country)))
 
-// Número de total de infectados del array de personas
+// 5. Número de total de infectados del array de personas
+console.log(persons.reduce(((currentlyInfected, person)=> person.infected ? ++currentlyInfected : currentlyInfected), 0));
 
-// Array con nombre de todas las mascotas
+// 6. Array con nombre de todas las mascotas
+console.log(pets.reduce(((nameOfPets, pet) => [...nameOfPets,pet.name]), []))
 
-// Array con las personas infectadas del array de personas
+// 7. Array con las personas infectadas del array de personas
+console.log(persons.reduce(((arrayOfInfected, person) => person.infected ? [...arrayOfInfected, person] : arrayOfInfected), []))
 
-// Array de españoles con perro
+// 8. Array de españoles con perro
+persons.filter(person => person.country === "ES").map((pets, person) => {
+  person.
+})
 
 // Número de personas infectadas del array de personas
 
