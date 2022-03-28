@@ -157,9 +157,10 @@ console.log(pets.reduce(((nameOfPets, pet) => [...nameOfPets,pet.name]), []))
 console.log(persons.reduce(((arrayOfInfected, person) => person.infected ? [...arrayOfInfected, person] : arrayOfInfected), []))
 
 // 8. Array de españoles con perro
-persons.filter(person => person.country === "ES").map((pets, person) => {
-  person.
-})
+persons.filter(person => person.country === "ES").map((person) => {
+  person["petSpecie"] = pets.filter(pet => person.pet === pet.name)[0].animal
+  return person
+}).filter(person => person["petSpecie"] === "perro")
 
 // Número de personas infectadas del array de personas
 
