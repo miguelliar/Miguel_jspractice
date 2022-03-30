@@ -170,19 +170,78 @@ let españolesConPerro = españoles.filter(español => personasConPerro.indexOf(
 console.log(españolesConPerro)
 
 // 9. Número de personas infectadas del array de personas
+console.log(persons.filter((person )=> person.infected).length);
 
-// Array con las personas y el objeto de la persona tiene a mayores todos los datos de su mascota
+// 10. Array con las personas y el objeto de la persona tiene a mayores todos los datos de su mascota
+let personasConMascota = persons.map(((person)=>{
+  person["petObject"] = pets.filter(pet=>pet.name===person.pet)[0];
+  return person;
+  }))
+console.log(personasConMascota)
 
-// A partir de las personas sacar el animal que tienen más personas como mascota
+// 11. A partir de las personas sacar el animal que tienen más personas como mascota
+let animalPopular = pets.map(pet => pet.animal)
+    .reduce((individualPets, pet) => individualPets.indexOf(pet) === -1 ? [...individualPets, pet]: individualPets, [])
 
-// Número total de patas de las mascotas de las personas
+// No funcional
+let mostRepeatedAnimal = ""
+let numOfMostRepeatedAnimal = 0
+for(const animal of animalPopular) {
+  let animalCount = personasConMascota.filter(person => person["petObject"].animal === animal).length
+  if (animalCount > numOfMostRepeatedAnimal) {
+    mostRepeatedAnimal = animal
+    numOfMostRepeatedAnimal = animalCount
+  }
+}
 
-// Array con las personas que tienen animales de 4 patas
+console.log(mostRepeatedAnimal)
 
-// A partir del string 'España' obtener un array de personas no infectadas de ese país
+// 12. Número total de patas de las mascotas de las personas
+let totalLegs = 0
+personasConMascota.forEach((persona) =>
+    totalLegs += animals
+        .filter(animal => animal.name === persona["petObject"].animal)
+        .map(animal => animal.legs)[0]
+);
 
-// Array de paises que tienen personas con loros como mascota
+console.log(totalLegs)
 
-// Numero de infectados totales (los del objeto del país) de los paises con mascotas de ocho patas
+// 13. Array con las personas que tienen animales de 4 patas
+let animalesDe4Patas = animals.filter(animal => animal.legs === 4).map(animal => animal.name)
+let personasConAnimalesDe4Patas = personasConMascota.reduce(((listaPersonas, persona) =>
+        animalesDe4Patas.indexOf(persona["petObject"].animal) !== -1 ? [...listaPersonas, persona] : listaPersonas
+), [])
+console.log(personasConAnimalesDe4Patas)
 
-// A partir de las personas sacar el animal que tienen más personas como mascota
+// 14. A partir del string 'España' obtener un array de personas no infectadas de ese país
+const millon = 1000000
+let noInfectadosEnEspaña = countries.filter(country => country.name === "España")
+    .map(country => country.population*millon - country.infected)
+console.log(noInfectadosEnEspaña)
+
+// 15. Array de paises que tienen personas con loros como mascota
+let origenDePersonasConLoros = personasConMascota
+    .filter(persona => persona["petObject"].animal === "loro")
+    .map(persona => persona.country)
+let paísesDePersonasConLoros = countries
+    .filter(country => origenDePersonasConLoros.indexOf(country.code) !== -1)
+console.log(paísesDePersonasConLoros)
+
+// 16. Numero de infectados totales (los del objeto del país) de los paises con mascotas de ocho patas
+let mascotasDeOchoPatas = animals.filter(animal => animal.legs === 8).map(animal => animal.name)
+let orígenDePersonasConMascotasDeOchoPatas = personasConMascota
+    .filter(persona => persona["petObject"].animal === mascotasDeOchoPatas[0])
+    .map(persona => persona.country)
+let paísesDePersonasConMascotasDeOchoPatas = countries
+    .filter(country => orígenDePersonasConMascotasDeOchoPatas.indexOf(country.code) !== -1)
+console.log(paísesDePersonasConMascotasDeOchoPatas)
+
+// 17. A partir de las personas sacar el animal que tienen más personas como mascota
+let listaConNumeroDeAnimales = personasConMascota
+    .map(persona => persona["petObject"].animal)
+    .reduce(((listaConNumeroMascotas, animal) => listaConNumeroMascotas[animal] == undefined ?
+        listaConNumeroMascotas[animal] = 1 : listaConNumeroMascotas[animal] += 1),[])
+
+listaConNumeroDeAnimales.reduce(((animalPopu, animal)=> listaConNumeroDeAnimales[animal] > animalPopu[0] ? [animal] : animalPopu)), []
+console.log(listaConNumeroDeAnimales)
+
