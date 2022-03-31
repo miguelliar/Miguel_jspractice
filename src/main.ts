@@ -239,9 +239,9 @@ console.log(paísesDePersonasConMascotasDeOchoPatas)
 // 17. A partir de las personas sacar el animal que tienen más personas como mascota
 let listaConNumeroDeAnimales = personasConMascota
     .map(persona => persona["petObject"].animal)
-    .reduce(((listaConNumeroMascotas, animal) => listaConNumeroMascotas[animal] == undefined ?
-        listaConNumeroMascotas[animal] = 1 : listaConNumeroMascotas[animal] += 1),[])
-
-listaConNumeroDeAnimales.reduce(((animalPopu, animal)=> listaConNumeroDeAnimales[animal] > animalPopu[0] ? [animal] : animalPopu)), []
-console.log(listaConNumeroDeAnimales)
+    .reduce(((listaConNumeroMascotas, animal) => { listaConNumeroMascotas[animal] === undefined ? listaConNumeroMascotas[animal] = 1 : listaConNumeroMascotas[animal] += 1
+      return listaConNumeroMascotas;
+    }),[ ])
+let animalMasPopu = Object.keys(listaConNumeroDeAnimales).reduce((maxKey, key) => listaConNumeroDeAnimales[key] > listaConNumeroDeAnimales[maxKey] ? key : maxKey)
+console.log(animalMasPopu)
 
