@@ -8,6 +8,8 @@ module.exports = {
     devtool: '#eval-source-map',
 
     entry: ['./src/main.ts'],
+    //entry: ['./src/function.ts'],
+
 
     output: {
         path: path.join(__dirname, 'app'),
