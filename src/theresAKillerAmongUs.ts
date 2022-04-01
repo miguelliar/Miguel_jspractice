@@ -76,25 +76,24 @@ class Suspicious {
         this.tip = tip
     }
 
-    constructor() {
-        this.name = null
-        this.eyeColor = null
-        this.height = null
-        this.tattooed = null
-        this.tip = null
+    matches(guilty: Suspicious) {
+        return this.eyeColor === guilty.eyeColor && this.height === guilty.height && this.tattooed === guilty.tattooed;
     }
 
 }
+
 
 class Detective {
     private profile:Suspicious
 
     constructor() {
+        this.profile = new Suspicious(null, null, null, null, null);
     }
     investigate(listOfSus:Suspicious[]) {
         for(let sus of listOfSus) {
             this.collectData(sus)
         }
+        this.findGuilty(listOfSus)
         return this.profile
     }
     collectData(sus: Suspicious) {
@@ -103,9 +102,18 @@ class Detective {
             this.profile[clue] = sus.tip[clue]
         }
     }
+    findGuilty(listOfSus:Suspicious[]) {
+        this.profile = listOfSus.reduce((guilty, suspect)=> {
+            if (suspect.matches(this.profile)) {
+                return suspect
+            } else {
+                return guilty
+            }
+        })
+    }
 }
 export function executeInvestigation() {
     let group = suspects.map((suspect) => new Suspicious(suspect.name, suspect.eyeColor, suspect.height, suspect.tattooed, suspect.tip))
     let detective = new Detective()
-    console.log(detective.investigate(group))
+    console.log("The author of the crime was... %o !!!!", detective.investigate(group).name)
 }
